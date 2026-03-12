@@ -4,15 +4,17 @@ metadata:
   name: nginx-child              # Child app name
   namespace: argocd
 spec:
-  project: default
+  project: frontend-team
   source:
     repoURL: https://github.com/NIKHILMPM/argocd-demos.git # Repo containing child apps(that you have forked and cloned earlier)
     targetRevision: main
     path: ui_approach/nginx      # path of Nginx app in `argocd-demos` repo
   destination:
     server: https://172.22.0.4:6443 # Replace with your Cluster Url, To get run: `argocd cluster list`
-    namespace: default           # Deploys into default namespace
+    namespace: frontend          # Deploys into default namespace
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
